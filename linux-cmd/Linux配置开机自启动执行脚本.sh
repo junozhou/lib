@@ -8,7 +8,8 @@
 # 1.编辑rc.local文件
 [root@localhost ~]# vi /etc/rc.local
 #备注---start
-#/etc/rc.local，该文件为链接文件
+# 最简单粗暴的方式直接在脚本/etc/rc.d/rc.local(和/etc/rc.local是同一个文件，软链)末尾添加自己的脚本
+# 然后，增加脚本执行权限
 #
 #[root@c69-01 ~]# ll /etc/rc.local
 #lrwxrwxrwx. 1 root root 13 Feb  5 10:03 /etc/rc.local -> rc.d/rc.local
