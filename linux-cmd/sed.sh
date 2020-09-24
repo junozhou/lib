@@ -83,6 +83,19 @@ sed -i "s/hotfix-20191226/master-20200104/g" *yaml
 sed -i "s/ccbscf-biz-payment/ccbscf-biz-agreement/g" *yaml
 
  —————————————
+* SHELL 在指定行的前/后插入指定内容
+
+#如果知道行号可以用下面的方法
+sed -i '88 r b.file' a.file    #在a.txt的第88行插入文件b.txt
+awk '1;NR==88{system("cat b.file")}' a.file > a.file
+
+#如果不知道行号，可以用正則匹配
+sed -i '/regex/ r b.txt' a.txt # regex是正则表达式
+awk '/target/{system("cat b.file")}' a.file > c.file
+
+#sed的話如果不改变源文件，可以去掉-i开关，修改会输出到STDOUT
+
+—————————————
 
 * 不知道行号，在指定行后添加一行
 原文件：
