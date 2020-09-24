@@ -20,6 +20,7 @@
 /etc/init.d/nginx start                                          # nginx开机启动
 supervisord -c /etc/supervisor/supervisord.conf                  # supervisord开机启动
 /bin/bash /server/scripts/test.sh >/dev/null 2>/dev/null
+/home/run-dd.sh
 
 # 3.最后修改rc.local文件的执行权限
 [root@localhost ~]# chmod +x  /etc/rc.local
