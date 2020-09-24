@@ -119,3 +119,45 @@ xiaowu
 bbbb
 cccc
 dddd
+
+#由结果可知，每个匹配行的下一行都会被添加“xiaowu”
+
+#那么如果指向在第二个“bbbb”的下一行添加内容“xiaowu”，该如何操作呢？
+#可以考虑先获取第二个“bbbb”行的行号，然后根据行号在此行的下一行添加“xiaowu”
+
+#获取第二个“bbbb”行的行号的方法：
+方法一：
+[root@xiaowu shell]# cat -n file |grep b |awk '{print $1}'|sed -n "2"p
+4
+方法二：
+[root@xiaowu shell]# sed -n '/bbbb/=' file |sed -n "2"p
+4
+#由结果可知第二个“bbbb”行的行号为4，然后再在第四行的前或后添加相应的内容:
+[root@xiaowu shell]# sed -e '4a\xiaowu' file
+aaaa
+bbbb
+cccc
+bbbb
+xiaowu
+dddd
+[root@xiaowu shell]# sed -e '4a\xiaowu\nxiaowu' file
+aaaa
+bbbb
+cccc
+bbbb
+xiaowu
+xiaowu
+dddd
+
+
+#向指定行的末尾添加指定内容，比如在“ccccc”行的行尾介绍“ eeeee”
+[root@xiaowu shell]# cat file
+aaaaa
+bbbbb
+ccccc
+ddddd
+[root@xiaowu shell]# sed 's/cc.*/& eeeee/g' file
+aaaaa
+bbbbb
+ccccc eeeee
+ddddd
