@@ -81,3 +81,41 @@ sed -i "s/'hostname' => '12.0.216.153',/periodSeconds: 30/g" *
 
 sed -i "s/hotfix-20191226/master-20200104/g" *yaml
 sed -i "s/ccbscf-biz-payment/ccbscf-biz-agreement/g" *yaml
+
+ —————————————
+
+* 不知道行号，在指定行后添加一行
+原文件：
+ cat -n file
+     1  aaaa
+     2  bbbb
+     3  cccc
+     4  dddd
+
+#现在要在第二行即“bbbb”行的下添加一行，内容为“xiaowu”。
+# 此时，只会在终端打印，sed -i 可以写入原文件。
+# 在Mac终端执行下面的sed语句会报错
+[root@xiaowu shell]# sed '/bbbb/a\xiaowu' file
+aaaa
+bbbb
+xiaowu
+cccc
+dddd
+
+
+#如果要加两行“xiaowu”可以用一下语句，注意用“\n”换行
+[root@xiaowu shell]# sed '/bbbb/a\xiaowu\nxiaowu' file
+aaaa
+bbbb
+xiaowu
+xiaowu
+cccc
+dddd
+
+#如果要在第二行即“bbbb”行的上添加一行，内容为“xiaowu”，可以把参数“a”换成“i”
+[root@xiaowu shell]# sed '/b/i\xiaowu' file
+aaaa
+xiaowu
+bbbb
+cccc
+dddd
