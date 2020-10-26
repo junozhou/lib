@@ -16,3 +16,11 @@ for line in `cat ./$file`
 do
   cat /data/docker/dokuwiki/logs/lighttpd/lighttpd/access.log | grep `echo $line |awk -F, '{print $1}'` | grep `echo $line |awk -F, '{print $2}'` | awk '{print $1}'|sort | uniq -c | wc -l
 done
+
+
+#! /bin/bash
+# 从文件中读取
+for line in `cat ./additems.txt`
+do
+ echo rm -rf $line
+done
