@@ -12,3 +12,9 @@ for k, v in s:
     d.setdefault(k, []).append(v)
 
 d.items()
+
+
+s=[('yellow', 1), ('blue', 2),  ('red', 1)]
+d = dict(s)
+d
+{'yellow': 1, 'blue': 2, 'red': 1}
