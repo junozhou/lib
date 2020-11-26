@@ -7,6 +7,7 @@ sed -i 直接编辑原文件
 * 查找
 # 显示打印所有匹配行
 sed  -n '/a/p' a.txt
+sed -n '/worker:/p' ccbscf-mock-server.yaml 匹配关键词worker:，并打印整行
 
 # 显示打印所有匹配行，并进行筛选
 sed  -n '/A/p' a.txt |grep A10
