@@ -103,3 +103,12 @@ res = requests.delete(url=url, headers = headers)
 
 
 print(res.text)
+
+
+###############
+# python request.args 解析
+# requst.args 获得的是 列表类型
+# 原始 aa=ff&&bb=gg 通过request.args 分解为 ImmutableMultiDict([('page', u'10')])
+# 列表类型 -》 todict -》 urlencode 转换为url格式的字符串
+
+
