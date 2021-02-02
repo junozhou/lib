@@ -1,6 +1,8 @@
+教程
+https://www.runoob.com/linux/linux-comm-awk.html
+
 1 、简单用法
 du -a /log/* | sort -n -r | head -n 1 | awk '{print $1\" \"$2}' #选出占用磁盘最大的目录
-
 
 2、复杂用法
 grep "slow sql.*millis." /log/service-name/*log.2021-01-29* | awk -F" " '{ if(int($13) > 7000 || int($12) > 7000){print $0}}'
