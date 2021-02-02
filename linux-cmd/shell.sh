@@ -12,7 +12,7 @@ done
 #从文件中读入
 file=d5
 
-for line in `cat ./$file`
+for line in `cat ./file`
 do
   cat /data/docker/dokuwiki/logs/lighttpd/lighttpd/access.log | grep `echo $line |awk -F, '{print $1}'` | grep `echo $line |awk -F, '{print $2}'` | awk '{print $1}'|sort | uniq -c | wc -l
 done
@@ -23,4 +23,14 @@ done
 for line in `cat ./additems.txt`
 do
  echo rm -rf $line
+done
+
+
+
+for line in `cat ./filez`
+do
+#  echo $line
+  cd $line
+  git remote -v | grep 3000 | grep fetch
+  cd ../
 done
