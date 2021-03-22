@@ -6,6 +6,11 @@ do
  kubectl replace -f $line --force
 done
 
+for line in `cat ./fz`
+do
+ echo $line.yaml
+ kubectl replace -f $line.yaml --force
+done
 
 
 #! /bin/bash
@@ -26,11 +31,69 @@ do
 done
 
 
+file= `ls *yaml`
+for line in $file
+do
+  echo $line
+done
+
+
+for line in `cat ./fz`
+do
+#  echo $line
+  cd $line
+  git remote -v | grep fetch
+  cd ../
+done
+
+
 
 for line in `cat ./filez`
 do
 #  echo $line
   cd $line
-  git remote -v | grep 3000 | grep fetch
+  git remote -v | grep inner | grep fetch | awk -v testEnv="git remote set-url origin " '{print testEnv$2}' >> filezh
   cd ../
 done
+
+
+
+for line in `cat ./filezh`
+do
+  echo $line
+  echo "========"
+#  cd $line
+#  git remote -v | grep 3000 | grep fetch
+#  cd ../
+done
+
+
+
+
+cat filezh | while read line; do
+  cd `echo $line | awk -F '[/|.]' '{print $7}'`
+  $line
+  cd ../
+  done
+
+
+  cat fz2 | while read line; do
+  cd `echo $line | awk -F '[/|.]' '{print $7}'`
+  $line
+  cd ../
+  done
+
+
+  cat fz2 | while read line; do
+  cd `echo $line | awk -F '[/|.]' '{print $7}'`
+  $line
+  cd ../
+  done
+
+
+
+  for line in `cat ./fz`;
+  do
+    cd $line;
+    git pull| grep "not found" ;
+    cd ../; done
