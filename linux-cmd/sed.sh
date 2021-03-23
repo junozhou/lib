@@ -59,6 +59,11 @@ sed -e 's/a/A/g' -e 's/b/B/g'  a.txt
 # 替换指定行的数据（将第二行的数据替换）
  sed '2c 这是替换后第二行的数据' a.txt -i
 
+ #匹配行前加
+sed -i '/www.baidu.com/i www.qq.com' domain.file
+#匹配行后加
+sed -i '/www.baidu.com/a www.qq.com' domain.file
+
 
  —————————————
 * Sed 修改文件内容
