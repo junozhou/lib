@@ -9,6 +9,7 @@
 # 1 -时间 1
 # 2 -时间 1
 # 4 -时间 2
+# 即 2^k <=n
 
 def bin_find(arr, item):
     low = 0;
