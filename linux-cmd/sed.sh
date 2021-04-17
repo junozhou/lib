@@ -7,6 +7,7 @@ sed -i 直接编辑原文件
 * 查找
 # 显示打印所有匹配行
 sed  -n '/a/p' a.txt
+sed -n '/worker:/p' test.yaml 匹配关键词worker:，并打印整行
 
 # 显示打印所有匹配行，并进行筛选
 sed  -n '/A/p' a.txt |grep A10
@@ -37,6 +38,9 @@ sed 'm,n'd a.txt
 
 # 删除匹配的行
 sed /A/d a.txt
+
+# 删除匹配到特定字符所在行的下一行
+sed -i -e '/string/{n;d}' filename
 —————————————
 
 * 替换
@@ -54,6 +58,11 @@ sed -e 's/a/A/g' -e 's/b/B/g'  a.txt
 
 # 替换指定行的数据（将第二行的数据替换）
  sed '2c 这是替换后第二行的数据' a.txt -i
+
+ #匹配行前加
+sed -i '/www.baidu.com/i www.qq.com' domain.file
+#匹配行后加
+sed -i '/www.baidu.com/a www.qq.com' domain.file
 
 
  —————————————
@@ -80,7 +89,7 @@ sed -i "s/periodSeconds: 15/periodSeconds: 30/g" *
 sed -i "s/'hostname' => '12.0.216.153',/periodSeconds: 30/g" *
 
 sed -i "s/hotfix-20191226/master-20200104/g" *yaml
-sed -i "s/ccbscf-biz-payment/ccbscf-biz-agreement/g" *yaml
+sed -i "s/test1/test2/g" *yaml
 
  —————————————
 * SHELL 在指定行的前/后插入指定内容

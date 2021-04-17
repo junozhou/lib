@@ -1,0 +1,15 @@
+# 异常信息如下：
+# UnicodeDecodeError: 'ascii' codec can't decode byte 0xe5 in position 89: ordinal not in range(128)
+# Logged from file google.py, line 159
+
+# 本次错误信息出现在logging代码中，python2的解决的办法是，在开头添加如下代码：
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+
+# python3.x下应该改为如下方式：
+
+import importlib
+importlib.reload(sys)
