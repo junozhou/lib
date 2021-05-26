@@ -1,0 +1,1 @@
+kubectl get nodes --show-labels #查看所有节点的label

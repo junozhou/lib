@@ -18,3 +18,6 @@ s=[('yellow', 1), ('blue', 2),  ('red', 1)]
 d = dict(s)
 d
 {'yellow': 1, 'blue': 2, 'red': 1}
+
+# 列表推导
+[i for k in infos for i in k]
