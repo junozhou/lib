@@ -6,11 +6,42 @@ do
  kubectl replace -f $line --force
 done
 
-for line in `cat ./fz`
+for line in `cat ./a`
 do
- echo $line.yaml
- kubectl replace -f $line.yaml --force
+ echo $line
+ kubectl replace -f $line --force
 done
+
+for line in `sudo locate *jar* | grep fastjson`:
+  do
+    echo $line | awk
+    rm -rf $line
+  done
+
+
+for line in `ls | grep 01`
+do
+  echo $line
+  echo "" > $line/chunks/000001
+  echo "" > $line/chunks/000002
+  echo "" > $line/chunks/000003
+  echo "" > $line/chunks/000004
+  echo "" > $line/chunks/000005
+  echo "" > $line/index
+  done
+du -sh ./*
+df -h
+
+for line in `cat ./t`
+do
+  echo $line
+  kubectl replace -f $line.yaml --force
+  done
+
+for dep in `kubectl get deployment -n ccbscf-t3|grep ccbscf|grep -v redis|awk '{print $1}'`;
+do
+  echo $dep
+  done
 
 
 #! /bin/bash
@@ -48,29 +79,31 @@ done
 
 
 
-for line in `cat ./filez`
+for line in `cat ./fz`
 do
 #  echo $line
   cd $line
-  git remote -v | grep inner | grep fetch | awk -v testEnv="git remote set-url origin " '{print testEnv$2}' >> filezh
+  git remote -v | grep inner | grep fetch | awk -v testEnv="git remote set-url origin " '{print testEnv$2}'
   cd ../
 done
 
 
 
-for line in `cat ./filezh`
+
+
+for line in `cat ./fz`
 do
   echo $line
   echo "========"
-#  cd $line
-#  git remote -v | grep 3000 | grep fetch
-#  cd ../
+  cd $line
+  git remote -v | grep 3000 | grep fetch
+  cd ../
 done
 
 
 
 
-cat filezh | while read line; do
+cat ff | while read line; do
   cd `echo $line | awk -F '[/|.]' '{print $7}'`
   $line
   cd ../

@@ -25,6 +25,7 @@ class LinkedList():
 
     #检测是否为空
     def isEmpty(self):
+        print(self._head == None)
         return self._head == None
 
         #add在链表前端添加元素:O(1)
@@ -103,3 +104,8 @@ class LinkedList():
                 current = current.getNext()
             pre.setNext(temp)
             temp.setNext(current)
+
+
+if __name__=="__main__":
+    s = LinkedList()
+    s.isEmpty()

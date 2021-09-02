@@ -11,5 +11,6 @@ def fistshow(st):
             print(iv)
             return iv
 
+
 if __name__ == "__main__":
-    fistshow("strs")
+    fistshow("dddss3ji")
