@@ -1,5 +1,5 @@
 def test():
-    client = InfluxDBClient('12.0.216.53', 8086, 'root', 'root')
+    client = InfluxDBClient('127.0.0.1', 8086, 'root', 'root')
     monitorDbNames = []
     allDbNames = client.get_list_database()
 
