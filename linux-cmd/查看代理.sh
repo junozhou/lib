@@ -16,4 +16,7 @@ env|grep -i proxy
 
 
 
- export http_proxy=http://12.1.216.225:7701 && export https_proxy=https://12.1.216.225:7701 && source ~/.nvm/nvm.sh && nvm use 12 && npm install && npm run build && unset http_proxy && unset https_proxy
+ export http_proxy=http://ip:7701 && export https_proxy=https://ip:7701 && source ~/.nvm/nvm.sh && nvm use 12 && npm install && npm run build && unset http_proxy && unset https_proxy
+
+
+
