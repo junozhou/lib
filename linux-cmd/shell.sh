@@ -53,6 +53,28 @@ do
   cat /data/docker/dokuwiki/logs/lighttpd/lighttpd/access.log | grep `echo $line |awk -F, '{print $1}'` | grep `echo $line |awk -F, '{print $2}'` | awk '{print $1}'|sort | uniq -c | wc -l
 done
 
+for line in `cat ./f`
+do
+  mkdir data/$line/_series/00
+  mkdir data/$line/_series/01
+  mkdir data/$line/_series/02
+  mkdir data/$line/_series/03
+  mkdir data/$line/_series/04
+  mkdir data/$line/_series/05
+  mkdir data/$line/_series/06
+  mkdir data/$line/_series/07
+  touch data/$line/_series/00/0000
+  touch data/$line/_series/01/0000
+  touch data/$line/_series/02/0000
+  touch data/$line/_series/03/0000
+  touch data/$line/_series/04/0000
+  touch data/$line/_series/05/0000
+  touch data/$line/_series/06/0000
+  touch data/$line/_series/07/0000
+
+done
+
+
 
 #! /bin/bash
 # 从文件中读取

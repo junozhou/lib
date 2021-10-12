@@ -4,7 +4,7 @@ docker rm `docker ps -a | grep Exited | awk '{print $1}'`
 docker rmi `docker images | grep  "<none>" | awk '{print $3}'`
 docker images --no-trunc # 显示完整的镜像信息
 docker system df # 用于查看Docker的磁盘使用情况
-
+docker rm $(docker ps -qf status=exited) # 根据容器的状态，删除Exited状态的容器
 #清理容器里的日志
 cd /var/lib/docker/containers
 for i in `ls`; do echo "" > $i/$i-json.log; done
