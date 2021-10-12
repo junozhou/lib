@@ -22,3 +22,8 @@
 22     print '\n遍历列表方法3 （设置遍历开始初始位置，只改变了起始序号）：'
 23     for i, val in enumerate(list, 2):
 24         print ("序号：%s   值：%s" % (i + 1, val))
+
+
+
+
+
