@@ -5,6 +5,16 @@
 # 加上decode_responses=True即可解决
 
 # redis_store = redis.StrictRedis(host='127.0.0.1', port=6379, decode_responses=True)
+
+# redis中我们存进去的是字符串类型的数据，取出来却是字节类型的。
+# 这是由于python3的与redis交互的驱动的问题，python2取出来的就是字符串类型的。
+#
+# 为了得到字符串类型的数据，你可以每次取出来decode一下，
+# 但是太繁琐了，可以直接在连接redis时设置：
+#
+# sr =redis(host=‘localhost’, port=6379, db=0,decode_responses=True)
+#
+# 即在连接数据库的时候加上decode_responses=True即可
 #
 # 解决二
 #
