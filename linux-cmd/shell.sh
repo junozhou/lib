@@ -91,6 +91,13 @@ do
 done
 
 
+file= `kubectl get pod -n health-check -o wide | grep 217217| awk '{print $1}'`
+for line in `kubectl get pod -n health-check -o wide | grep 217217| awk '{print $1}'`
+do
+  echo $line
+  kubectl delete pod $line -n health-check --force --grace-period=0
+done
+
 for line in `cat ./fz`
 do
 #  echo $line
