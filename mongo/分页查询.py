@@ -9,7 +9,8 @@ def page_query(query_filter=None,page_size=10,page_no=1):
     #     过滤不需要返回的字段
     #     'job_state':0,'next_run_time':0
     }).limit(page_size).skip(skip)
-
+    # mongo统计数据量，count方法已经废弃，用count_documents
+    itemsCount = mydb.get_collection("env_use_plan").count_documents(query_filter)
 
 if __name__ == '__main__':
     #app = Flask(__name__)
