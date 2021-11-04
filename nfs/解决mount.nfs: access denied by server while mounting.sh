@@ -9,6 +9,8 @@
 #001
 #vi /etc/exports
 #添加一条：
+/bank 192.168.1.0/24(rw,no_root_squash,sync)
+192.168.1换成自己nfs服务器IP前三位
 #
 #?
 #/bank 255.255.255.255(rw,no_root_squash)
