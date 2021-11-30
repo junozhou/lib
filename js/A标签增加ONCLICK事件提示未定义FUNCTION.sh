@@ -33,3 +33,23 @@ window.editServer= function(value){
 }
 #
 #再次运行后成功
+
+# 以下方法才可行得通
+#Vue父组件调用子组件的方法并传参的两种方式（用$refs.refName.functionName、window.function）
+#父组件，
+import Gantt from '../components/Gantt.vue';
+  created() {
+    window.clickGridButton = this.clickGridButton; #声明全局方法（直男模式）
+  },
+
+#子组件 Gantt.vue
+mounted: function () {
+  var colHeader = '<div class="gantt_grid_head_cell gantt_grid_head_add" onclick="gantt.createTask()"></div>',
+          colContent = function (task) {
+            return (
+                '<i class="fa gantt_button_grid gantt_grid_edit fa-pencil" onclick="clickGridButton(' + task.id +
+                ', \'edit\')"></i>' +
+                '<i class="fa gantt_button_grid gantt_grid_delete fa-times" onclick="clickGridButton(' + task.id + ', \'delete\')"></i>');
+          };
+
+}
