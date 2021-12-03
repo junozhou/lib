@@ -17,4 +17,7 @@ def quick_sort(arr):
 
 if __name__ == '__main__':
     arr = [8,2,9,23,18,89,34,1,3,13,12,42,16,0,82,7,1,48,2,3,3,4,5]
-    print(quick_sort(arr))
+    # print(quick_sort(arr))
+    length = 9
+    a = list(range(length - 1, 0, -1))
+    print(a)
