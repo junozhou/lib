@@ -38,7 +38,7 @@ do
   kubectl replace -f $line.yaml --force
   done
 
-for dep in `kubectl get deployment -n ccbscf-t3|grep ccbscf|grep -v redis|awk '{print $1}'`;
+for dep in `kubectl get deployment -n test|grep test|grep -v redis|awk '{print $1}'`;
 do
   echo $dep
   done
@@ -50,7 +50,8 @@ file=d5
 
 for line in `cat ./file`
 do
-  cat /data/docker/dokuwiki/logs/lighttpd/lighttpd/access.log | grep `echo $line |awk -F, '{print $1}'` | grep `echo $line |awk -F, '{print $2}'` | awk '{print $1}'|sort | uniq -c | wc -l
+  cat test/access.log | grep `echo $line |awk -F, '{print $1}'` | grep `echo $line |awk -F, '{print $2}'` | awk '{print
+  $1}'|sort | uniq -c | wc -l
 done
 
 for line in `cat ./f`
@@ -91,11 +92,11 @@ do
 done
 
 
-file= `kubectl get pod -n health-check -o wide | grep 217217| awk '{print $1}'`
-for line in `kubectl get pod -n health-check -o wide | grep 217217| awk '{print $1}'`
+file= `kubectl get pod -n test -o wide | grep 123| awk '{print $1}'`
+for line in `kubectl get pod -n test -o wide | grep 123| awk '{print $1}'`
 do
   echo $line
-  kubectl delete pod $line -n health-check --force --grace-period=0
+  kubectl delete pod $line -n test --force --grace-period=0
 done
 
 for line in `cat ./fz`
