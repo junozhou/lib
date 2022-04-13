@@ -35,5 +35,18 @@ git commit --amend
 #著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 
+#====================
+#我想删除最近的两次commit：那就需要选择倒数第三次的commit id
+#即：ae5346f77ac3a79dcababc16bcd61560b3d4b1cd
+#
+#Step2：
+#使用如下两个命令撤销提交：
+
+git reset --hard  ae5346f77ac3a79dcababc16bcd61560b3d4b1cd #如果还没有push到远程服务器只需要执行这一步
+git push origin HEAD --force
+
+#————————————————
+#版权声明：本文为CSDN博主「sunweijm」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+#原文链接：https://blog.csdn.net/sunweijm/article/details/77008177
 
 
