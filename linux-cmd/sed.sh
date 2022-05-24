@@ -86,7 +86,7 @@ sed -i “/\#/b; s/livenessProbe/#livenessProbe/g" *
 sed -i "s/periodSeconds: 15/periodSeconds: 30/g" *
 
 
-sed -i "s/'hostname' => '12.0.216.153',/periodSeconds: 30/g" *
+sed -i "s/'hostname' => '127.0.0.1',/periodSeconds: 30/g" *
 
 sed -i "s/hotfix-20191226/master-20200104/g" *yaml
 sed -i "s/test1/test2/g" *yaml

@@ -12,10 +12,23 @@ do
  kubectl replace -f $line --force
 done
 
+for line in `tail -n 100 ./cc.txt`
+do
+ ls $line > ccc.txt
+
+done
+select * from tf.table_file t where t.count = '0' and t.create_time <
+to_date('12-12-2019 18:42:20', 'dd-mm-yyyy hh24:mi:ss') and t.file_path like '%cupload/%' AND t.FILE_SIZE > 10 ORDER BY t.create_time DESC
+
 for line in `sudo locate *jar* | grep fastjson`:
   do
     echo $line | awk
     rm -rf $line
+  done
+
+for line in `kubectl get pod,deployment -n health-check | grep Terminating | awk '{print $1}'`
+  do
+    kubectl delete $line --force --grace-period=0 -n health-check
   done
 
 
