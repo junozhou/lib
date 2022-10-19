@@ -64,8 +64,11 @@ sed -i '/www.baidu.com/i www.qq.com' domain.file
 #匹配行后加
 sed -i '/www.baidu.com/a www.qq.com' domain.file
 
+#匹配关键字替换整行
+"sed -i -e 's#image: \(.*\)%s\(.*\)#image: %s#' %s/%s.yaml" % ("service_name","127.0.0.1/test-standard/service_name:image-tag-3.3.0-SNAPSHOTsasssssss","/home/test", "te-s")
 
- —————————————
+
+# —————————————
 * Sed 修改文件内容
 
 //批量修改当前文件夹下的文件的内容
@@ -91,7 +94,7 @@ sed -i "s/'hostname' => '127.0.0.1',/periodSeconds: 30/g" *
 sed -i "s/hotfix-20191226/master-20200104/g" *yaml
 sed -i "s/test1/test2/g" *yaml
 
- —————————————
+# —————————————
 * SHELL 在指定行的前/后插入指定内容
 
 #如果知道行号可以用下面的方法
@@ -104,7 +107,7 @@ awk '/target/{system("cat b.file")}' a.file > c.file
 
 #sed的話如果不改变源文件，可以去掉-i开关，修改会输出到STDOUT
 
-—————————————
+#—————————————
 
 * 不知道行号，在指定行后添加一行
 原文件：
