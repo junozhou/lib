@@ -57,6 +57,74 @@ do
   done
 
 
+for line in `kubectl get deployment -n test-t8 | grep -E "test-api-mobile-paper|test-biz-stdpaper" | awk '{print $1}'`
+do
+  kubectl delete deployment.extensions/$line -n test-t8
+  done
+
+
+for line in `ls /test/test/default/20220601`
+do
+
+  fa="/test/test/default/20220601/${line}"
+  for cline in `ls ${fa}`
+  do
+
+    if [[ ${cline} != "56" || ${cline} != "57" || ${cline} != "58" ]]
+        then
+          echo "包含"
+          echo $fa/$cline
+          rm -rf $fa/$cline/*
+      fi
+
+    done
+  done
+
+
+
+  for line in `ls /test/test/default/20220601`
+  do
+
+    fa="/test/test/default/20220601/${line}"
+    for cline in `ls ${fa}`
+    do
+      echo $fa/$cline
+      find $fa/$cline -name "*zip" -amin +1 -type f -print | xargs rm -f
+      done
+    done
+
+  for line in `ls /test/test/default/20220602`
+  do
+
+    fa="/test/test/default/20220602/${line}"
+    for cline in `ls ${fa}`
+    do
+      echo $fa/$cline
+      find $fa/$cline -name "*zip" -amin +1 -type f -print | xargs rm -f
+      done
+    done
+
+
+if [ ! -d "/cuploadarch1" ];then
+  mkdir -p /cuploadarch1
+fi
+
+
+      for line in `ls /test/test/default/20220602`
+      do
+
+        fa="/test/test/default/20220602/${line}"
+        for cline in `ls ${fa}`
+        do
+          echo $fa/$cline
+          find $fa/$cline -name "*zip" -amin +1 -type f -print | xargs rm -f
+
+          done
+        done
+
+  #  for cline in `ls /test/test/default/20220601/`
+
+
 #! /bin/bash
 #从文件中读入
 file=d5
@@ -145,6 +213,39 @@ done
 
 
 
+for line in `ls /var/local/codediff/test`
+do
+  echo "========s==="
+  echo $line
+
+  cd $line
+  git remote -v | grep fetch | awk '{print $1}'
+  echo "========end===="
+  cd ../
+done
+
+for line in `sudo find / -name log4j-core*jar`
+do
+  echo $line
+  sudo rm -rf $line
+done
+
+for line in `top -b -n 2 | grep java| grep -v grep|awk '{print $1}'`
+  do
+    ps -ef | grep $line | grep -v grep
+
+    echo $line
+
+  done
+
+
+
+for line in `ls -lrth | grep 2021 | awk '{print $9}'`
+do
+  echo $line
+  echo "" > $line
+done
+
 
 cat ff | while read line; do
   cd `echo $line | awk -F '[/|.]' '{print $7}'`
@@ -166,10 +267,18 @@ cat ff | while read line; do
   cd ../
   done
 
-
-
   for line in `cat ./fz`;
   do
     cd $line;
     git pull| grep "not found" ;
     cd ../; done
+
+/data/Pccbscf/projects/test2/
+    for line in `cat ./cb.txt`
+    do
+      echo $line
+      rm -rf $line
+      done
+
+cd /data/Pccbscf/projects/test2
+rm -rf testcc1 testcc2 testcc3
