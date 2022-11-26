@@ -3,13 +3,9 @@
 首先通过docker ps确定容器的名称，我们假定容器名称为 nginx-web。
 
 一、从容器复制文件到宿主机
-现在我们想要将容器的 /home/licence.txt 文件复制到宿主机的 /home 目录下。执行如下命令：
-
 docker cp nginx-web:/home/licence.txt /home
 
 二、从宿主机复制文件到容器
-现在我们想要将宿主机的 /home/licence.txt 文件复制到容器的 /home 目录下。执行如下命令：
-
 docker cp /home/licence.txt nginx-web:/home
 
 需要注意的是，不管容器有没有启动，拷贝命令都会生效。文章内容仅代表个人观点，如有不正之处，欢迎批评指正，谢谢大家。
