@@ -4,9 +4,8 @@ LINUX文件删除，但磁盘空间未释放
 使用lsof | grep delete命令，发现已经删除的文件仍然被应用程序占用。
 
 解决方法：
-
 1.杀掉进程kill -9 pid，重启应用服务
-
+  批量操作方法：lsof | grep deleted | awk '{print $2}' | xargs kill -9
 2.重启服务器
 
 http://blog.51cto.com/ixdba/1435781
