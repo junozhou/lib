@@ -26,4 +26,14 @@
 
 
 
+Python遍历列表时删除元素
+
+方法2，重新构造list
+
+bas = [ 'ba1', 'ba2', 'ba3', 'ba4', 'ba5', 'tk' ]
+bas = [ba for ba in bas if ba.find( 'ba' ) == -1]
+print( bas )
+
+
+
 

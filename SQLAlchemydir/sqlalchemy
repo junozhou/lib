@@ -1,0 +1,20 @@
+flaks-SQLAlchemy 如何直接连接数据库中已有的表 而不用重新建表
+
+
+
+如果你想在Flask中使用SQLAlchemy连接数据库中已有的表，可以使用Table对象和MetaData对象。
+
+首先，需要导入Table和MetaData对象：
+
+复制
+from sqlalchemy import Table, MetaData
+然后，需要创建一个MetaData对象，并使用Table方法连接到数据库中的表：
+
+复制
+metadata = MetaData()
+my_table = Table('my_table_name', metadata, autoload=True, autoload_with=db.engine)
+这里的my_table_name是你要连接的表的名称。
+
+最后，你可以使用my_table对象来操作数据库中的数据，就像你使用ORM模型一样。
+
+需要注意的是，autoload=True参数告诉SQLAlchemy从数据库中加载表的结构，而不是创建一个新的表。如果表不存在，将会抛出异常。

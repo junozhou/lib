@@ -81,6 +81,79 @@ do
   done
 
 
+for line in `ls -lt | tail -100|awk '{print $9}'`
+do
+
+#  rm -rf "/usr/local/nginx/file/"$line
+  rm -rf "/autotest/logs"$line
+  done
+
+
+for line in `ls -lt | tail -100|awk '{print $9}'`
+do
+
+  rm -rf "/autotest/logs"$line
+  done
+
+for line in  `sudo find / -name *spring-boot-test-autoconfigure*`
+do
+  sudo rm -rf $line
+  sudo find / -name *spring-boot-test-autoconfigure*
+  done
+
+for line in `ls`
+do
+    cd $line
+    if test ! -z "$(git remote -v |  grep fetch| grep 'http://reporter@')"; then
+    	echo $line
+    else
+      echo ""
+    fi
+    cd ../
+  done
+
+
+
+  for line in `ls`;do cd $line;if test ! -z "$(git remote -v |  grep fetch| grep 'http://reporter@')"; then echo $line;git remote -v |  grep fetch| grep 'http://reporter@' | awk '{print $1" "$2}';fi cd ../ done
+
+
+for line in `ls`
+do
+    cd $line
+    echo $line
+    git branch | awk '{print $2}'
+    cd ../
+  done
+
+git branch | awk '{print $2}'
+  docker login --username swarm --password P@ssw0rd https://12.0.216.152/;
+  for line in `docker images | grep -v "<none>" | awk '{print $1":"$2}'|grep -v "REPOSITORY:TAG"`
+  do
+    echo docker push $line
+#    docker push $line
+    done
+
+
+sudo systemctl restart docker.service;
+
+
+
+
+sudo docker login --username swarm --password P@ssw0rd https://12.0.216.152/;
+  for line in `sudo docker images | grep -v "<none>" | awk '{print $1":"$2}'|grep -v "REPOSITORY:TAG"`
+  do
+    sudo docker push $line
+    done
+
+
+
+
+docker login --username swarm --password P@ssw0rd https://12.0.216.152/;
+  for line in `docker images | grep -v "<none>" | awk '{print $1":"$2}'|grep -v "REPOSITORY:TAG"`
+  do
+    docker push $line
+    done
+
 
   for line in `ls /test/test/default/20220601`
   do
@@ -223,7 +296,7 @@ do
   echo "========end===="
   cd ../
 done
-
+top -b -n 200 -p 24489
 for line in `sudo find / -name log4j-core*jar`
 do
   echo $line
@@ -282,3 +355,9 @@ cat ff | while read line; do
 
 cd /data/Pccbscf/projects/test2
 rm -rf testcc1 testcc2 testcc3
+
+
+
+
+
+{"apiVersion":"apps/v1beta1","kind":"StatefulSet","metadata":{"name":"eureka","namespace":"test2-t6"},"spec":{"serviceName":"test2-eureka-server","replicas":2,"template":{"metadata":{"labels":{"app":"test2-eureka-server"}},"spec":{"containers":[{"name":"test2-eureka-server","image":"12.0.216.152/public/eureka:cluster","imagePullPolicy":"Always","securityContext":{"capabilities":{"drop":["NET_RAW"]}},"ports":[{"containerPort":9001}],"volumeMounts":[{"name":"ccbscflog","mountPath":"/log"}],"env":[{"name":"POD_NAME","valueFrom":{"fieldRef":{"fieldPath":"metadata.name"}}},{"name":"EUREKA_INSTANCE_HOSTNAME","value":"${POD_NAME}.test2-eureka-server"},{"name":"EUREKA_SERVER","value":"http://eureka-0.test2-eureka-server:9001/eureka/,http://eureka-1.test2-eureka-server:9001/eureka/"}],"envFrom":[{"configMapRef":{"name":"test2-t6-configmap"}}]}],"volumes":[{"name":"ccbscflog","hostPath":{"path":"/log"}}],"nodeSelector":{"worker":"worker216087"}}},"podManagementPolicy":"Parallel"}}

@@ -3,6 +3,11 @@
 # lambda_expr_nocond ::=  "lambda" [parameter_list] ":" expression_nocond
 # lambda 表达式（有时称为 lambda 构型）被用于创建匿名函数。 表达式 lambda parameters: expression 会产生一个函数对象 。 该未命名对象的行为类似于用以下方式定义的函数:
 
+# lambda定义：
+#
+# <函数名> = lambda<参数> ： <表达式>
+# lambda函数也可以传入多参：
+
 # def <lambda>(parameters):
 #     return expression
 # 如：

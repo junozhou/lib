@@ -16,6 +16,15 @@ docker stop k8s_test-server && docker rm k8s_test-server
 #原文链接：https://blog.csdn.net/m0_67393827/article/details/123731553
 
 
+kubectl label nodes t4-k8sn-49 worker=worker221049
+kubectl label nodes t4-k8sn-50 worker=worker221050
+kubectl label nodes t4-k8sn-51 worker=worker221051
+kubectl label nodes t2-k8sn-70 worker=worker221070
+#kubectl label nodes cs-docker-155 worker=worker155
+
+
+
+
 4、手动删除不用的镜像
 在执行docker system prune -f 删除不了之后
 sudo docker images |grep 镜像tag等唯一指标 | awk '{print $3}' | xargs sudo docker rmi --force
