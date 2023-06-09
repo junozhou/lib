@@ -80,12 +80,12 @@ do
     done
   done
 
-
+#linux 查看最老的几个文件
 for line in `ls -lt | tail -100|awk '{print $9}'`
 do
 
-#  rm -rf "/usr/local/nginx/file/"$line
-  rm -rf "/autotest/logs"$line
+  rm -rf "/usr/local/nginx/file/"$line
+#  rm -rf "/autotest/logs"$line
   done
 
 
