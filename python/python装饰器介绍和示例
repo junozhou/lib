@@ -189,3 +189,30 @@ class MyClass:
 
 声明：本文由用户投稿上传，本站不保证内容的真实与正确性，并且不承担相关法律责任，如有侵权请提供版权资料并联系删除！
 https://www.sfjvip.com/python/2718.html
+
+
+def format_t(time_unit):
+    def format_time(func):
+        def inner(*args,**kwargs):
+            return ("0"+str(func()))[-2:]+time_unit
+        return inner
+    return format_time
+import time
+@format_t("h")
+def get_hours():
+    print(time.localtime())
+    return time.localtime()[3]
+
+@format_t("m")
+def get_mins():
+    print(time.localtime())
+    return time.localtime()[4]
+
+
+if __name__ == "__main__":
+    # sum_num = round_args(sum_num)
+    # print(sum_num(2,3))
+    # cubage(1,2,4)
+    print(get_hours())
+    print(get_mins())
+
