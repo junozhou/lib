@@ -191,6 +191,154 @@ class MyClass:
 https://www.sfjvip.com/python/2718.html
 
 
+文章目录
+系列文章目录
+一、装饰器介绍
+二、无参装饰器
+三、有参装饰器
+四、装饰器的补充知识点
+一、装饰器介绍
+定义：
+
+装饰器是一个可调用的对象，能够在不修改被装饰函数原有代码，以及调用方式的情况下，改变被装饰函数的功能。它体现的是设计模式中的装饰模式，强调的是开放封闭原则。
+
+使用了装饰器的函数就是被装饰函数。
+
+格式：
+
+先大概了解一下格式，后面通过例子来加深理解。
+
+# 装饰器
+def outer(func):  # 接收被装饰函数的引用，此处为foo
+    def wrapper(*args， **kwargs):  # 使用可变长参数接收实参，增强装饰器的通用性
+    
+        # 写需要的代码，修改foo的功能
+        # 调用foo
+        
+    return wrapper  # 注意：是返回引用！
+
+
+# 被装饰函数
+@outer  # 这是个语法糖，之后会讲
+def foo():
+    pass 
+之所以写成外面套一层outer函数的格式，是因为wrapper是要在调用foo后才执行的，如果不用outer包住，就会在执行@outer的时候将wrapper一起执行掉，这与我们的要求不符合。
+
+有参数的装饰器比无参数的装饰器稍微复杂一些，因此分开来讲。
+
+二、无参装饰器
+用法：
+
+下面的例子会使用装饰器，统计foo函数的运行时间并打印。
+
+import time
+
+
+# 装饰器
+def timmer(func):  # 接收被装饰的函数的引用
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        func(*args, **kwargs)  # 调用foo
+        stop = time.time()
+        print('foo运行时长:', stop - start)
+    return wrapper
+
+# 被装饰函数
+def foo(x, y, z):
+    time.sleep(3)
+    print(f'x={x}, y={y}, z={z}')
+    
+# 偷梁换柱，将foo存放的地址，换成wrapper的地址，避免修改foo的调用方式
+foo = timmer(foo)  
+
+foo(1, 2, 3)  # 调用方式不变
+语法糖：
+
+上述例子中，我们使用foo = outter(foo)的方式，来避免函数调用的修改。不过写法有点啰嗦，于是python提供了一个语法糖，可以使这一步骤更为简单。
+
+只需在被装饰函数的上面一行写：@装饰器名字
+
+@timmer  # 等同于 foo = timmer(foo)
+def foo(x, y, z):
+    time.sleep(3)
+    print(f'x={x}, y={y}, z={z}')
+
+三、有参装饰器
+问题 ：
+
+由于 @语法糖 不支持传参，并且装饰器只能有一个形参，是用来接收函数引用的，所以，不能直接在装饰器中设置形参来接收装饰器所需参数。
+
+解决方法：
+
+在timmer外层再嵌套一层函数，专门用于接收参数：
+
+def fff(x, y, z):  # 专门用于接收参数
+    def timmer(func):
+        def wrapper(*args， **kwargs):  
+            # 写需要的代码，修改foo的功能
+            # 调用foo   
+        return wrapper  
+    return timmer  # 返回装饰器的引用
+
+
+@fff(a, y=b, z)  # 传入实参
+def foo():
+    pass 
+
+四、装饰器的补充知识点
+顺序：
+
+当多个装饰器装饰同一函数时：
+从下往上加载，从上往下执行。
+
+文档注释和函数名的改正：
+
+在使用装饰器后，foo被换成了timmer，而time返回了wrapper。因此，当我们打印foo的文档注释和函数名的时候，显示的却是wrapper的文档注释和函数名。代码如下：
+
+def timmer(func): 
+    """timmer的文档注释"""
+    def wrapper(*args, **kwargs):
+        """wrapper的文档注释"""
+        func(*args, **kwargs)
+    return wrapper
+
+@timmer
+def foo():
+    """foo的文档注释"""
+    pass
+  
+print(foo.__doc__)  #打印：wrapper的文档注释
+print(foo.__name__)   #打印：wrapper
+
+改正方法：导入wraps，用wraps装饰wrapper
+
+from functools import wraps
+
+def timmer(func): 
+    """timmer的文档注释"""
+    
+    @wraps(func)  # 传入foo的函数对象
+    def wrapper(*args, **kwargs):
+        """wrapper的文档注释"""
+        func(*args, **kwargs)
+    return wrapper
+
+@timmer
+def foo():
+    """foo的文档注释"""
+    pass
+  
+print(foo.__doc__)  #打印：foo的文档注释
+print(foo.__name__)   #打印：foo
+
+实际上，函数的属性不仅仅只有文档注释和函数名两种，其他的属性wraps都会自动帮我们修正。
+————————————————
+版权声明：本文为CSDN博主「花_城」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_39330486/article/details/118418361
+
+
+
+
 def format_t(time_unit):
     def format_time(func):
         def inner(*args,**kwargs):
