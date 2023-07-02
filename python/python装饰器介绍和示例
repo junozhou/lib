@@ -1,1 +1,191 @@
 
+Python3 装饰器介绍和示例
+ python  投稿  2022-12-27 13:16  34800℃  0 评论
+以下主要是针对Python3中装饰器介绍和示例。先来看一些代码，这些代码是分别获取当前系统时间的时、分、秒。
+
+示例代码：
+
+import time
+
+def get_hours():
+    return time.localtime()[3]
+
+def get_minutes():
+    return time.localtime()[4]
+
+def get_seconds():
+    return time.localtime()[5]
+
+print(get_hours(), get_minutes(), get_seconds(), sep=':') # 显示输出结果类似：12:49:2
+上方代码中，用到了time模块，通过localtime()函数，我们能够获取到本地时间的元组。
+
+在本地时间的元组中包含的元素依次为：年,月,日,时,分,秒,星期几,本年第几天，是否夏令时。
+
+所以，大家能够看到，在上方代码中，通过元组中元素的编号3、4、5获取到了时、分、秒的数值。
+
+不过，当时、分、秒的数值小于10的时候，都是1位数字（0:0:0），如果想得到两位数字（00:00:00）怎么办呢？
+
+当然，我们可以修改每一个写好的函数；但是，这样有点笨。
+
+而且，不一定哪一天，你又想要1位数字，还要全部改回来。
+
+最好的办法应该是再写一个函数，用这个函数处理时、分、秒这三个函数的返回值。
+
+接下来，我们加入一段代码。
+
+示例代码：
+
+def new_time(fun):  # 定义处理时间的函数，对传入函数的返回值进行再处理。
+    return ('0' + str(fun()))[-2:]  # 返回处理结果
+
+print(new_time(get_hours), new_time(get_minutes), new_time(get_seconds), sep=':')  # 显示输出结果类似：12:49:02
+在上方代码中，我们把函数作为参数传入新写的函数，然后对传入函数的返回值进行处理，将处理后的值返回。
+
+这样做效果上没有问题。
+
+但是，大家注意print语句，参数全部和刚才不一样了。
+
+那么大家想一下，如果是之前写好的函数，也在被很多客户代码（使用这个函数的代码）使用，通过这样处理的话，大量的客户代码都需要修改，这样还不如修改写好的这几个函数。
+
+那么，能不能既不修改写好的函数，也不修改客户代码，来解决这个问题呢？
+
+大家是否还记得之前学过的闭包？
+
+简单来说，闭包是函数里面嵌套函数，外层函数返回值为内层函数。
+
+我们把刚才新增的代码修改一下。
+
+示例代码：
+
+def format_time(fun):  # 函数传入
+    def new_time():  # 定义处理函数返回值的函数，注意，参数由外层函数获取，这个函数不需要参数。
+        return ('0' + str(fun()))[-2:]  # 返回处理结果
+    return new_time  # 闭包，返回处理函数的函数。
+上面这段代码中，外层函数负责返回内嵌函数，内嵌函数负责对外层函数的参数进行处理，返回新的值。
+
+这实际上就是传入一个函数，处理函数的返回值，再传出一个函数。
+
+这和我们想要的解决方案已经很相像了。
+
+以秒的函数为例，我们希望把这个获取1位秒数返回值的函数，变成获取双位秒数返回值的函数。
+
+那么，这段代码怎么用呢？
+
+示例代码：（错误示例）
+
+print(format_time(get_hours)(), format_time(get_minutes)(), format_time(get_seconds)(), sep=':')
+这特么有点尴尬，跟刚才没什么区别，还是要修改所有客户代码。
+
+打个比方，我们和女朋友约会。
+
+我们肯定希望女朋友化完妆再约会，而不是约会时候还要化妆。
+
+刚才的代码，就很像这个场景。
+
+format_time()函数就是化妆，参数fun是自己的女朋友。
+
+我们希望print语句中只有format_time()函数中的参数，而不希望看到format_time()函数的出现。
+
+实际上，format_time()函数就是一个装饰器。
+
+我们怎么能够让它不出现，还能够得到它的装饰效果？
+
+我们使用装饰符“@”。
+
+示例代码：
+
+import time
+
+def format_time(fun):  # 装饰器
+    def new_time():
+        return ('0' + str(fun()))[-2:]
+    return new_time
+
+@format_time  # 为函数指定装饰器
+def get_hours():
+    return time.localtime()[3]
+
+@format_time  # 为函数指定装饰器
+def get_minutes():
+    return time.localtime()[4]
+
+@format_time  # 为函数指定装饰器
+def get_seconds():
+    return time.localtime()[5]
+
+print(get_hours(), get_minutes(), get_seconds(), sep=':')
+上方代码中，时、分、秒的函数之前都加了一句“@format_time”。
+
+这就是声明在调用这个函数的时候，要使用哪个装饰器进行处理，并得到处理后的结果。
+
+是不是很简单，就像约会之前@自己的女朋友（被装饰的函数）化妆（装饰器）后再来。
+
+另外，装饰器也能够而外接收参数。
+
+我们再来看个例子，对计算合计的函数添加货币符号。
+
+def add_symbol(symbol):  # 获取装饰器参数
+    def dec_function(fun):  # 被装饰函数传入
+        def new_total(price, count):  # 获取被装饰函数的参数
+            return symbol + str(fun(price, count))  # 对被装饰函数进行处理，并返回结果。
+        return new_total  # 返回装饰后的函数
+    return dec_function  # 返回装饰后的函数
+
+@add_symbol('￥')
+def total(price, count):
+    return price * count
+
+print(total(2.5, 3))  # 显示输出结果为：￥7.5
+在上方代码中，大家能够看到，装饰器的嵌套函数变成了三层。
+
+最外层的函数是用于接收货币符号的参数，中间层函数用于接收被装饰的函数，最内层函数用于装饰处理。
+
+这里要注意，最内层函数的参数与被装饰函数的参数一致。
+
+以上是关于自定义的装饰器。
+
+在Python中，也有内置的装饰器，我们通过代码“cubage = property(get_cubage,set_cubage)“定义了体积这个特性。
+
+其实，我们也可以通过装饰器来完成这个操作。
+
+示例代码：
+
+@property  # 将方法装饰为属性
+def cubage(self):
+    return self.length, self.width, self.height
+
+@cubage.setter  # 将方法装饰为cubage属性的setter方法
+def cubage(self, tup):
+    if len([i for i in tup if isinstance(i, (int, float))]) == 3:
+        self.length, self.width, self.height = tup 
+    else:
+        raise TypeError
+除了@property 这个装饰器，还有两个内置的装饰器@staticmethod和@classmethod。
+
+先来看一段代码。
+
+class MyClass:
+    def sm():  # 静态方法没有self参数
+        print('静态方法...')
+
+    def cm(cls):  # 类成员方法带有cls参数
+        print('类成员方法...')
+
+MyClass.sm()  # 类直接调用静态方法，显示输出结果：静态方法...
+MyClass().sm()  # 类的实例调用静态方法，抛出异常，无法调用。
+MyClass.cm()  # 类直接调用类成员方法，抛出异常，无法调用。
+MyClass().cm()  # 类的实例调用类成员方法，显示输出结果：类成员方法...
+为上方代码中的两个方法指定装饰器。
+
+class MyClass:
+    @staticmethod
+    def sm():  # 静态方法没有self参数
+        print('静态方法...')
+        
+    @classmethod
+    def cm(cls):  # 类成员方法带有cls参数
+        print('类成员方法...')
+通过指定装饰器，静态方法和类成员方法就都能够被类和实例访问了。
+
+声明：本文由用户投稿上传，本站不保证内容的真实与正确性，并且不承担相关法律责任，如有侵权请提供版权资料并联系删除！
+https://www.sfjvip.com/python/2718.html
