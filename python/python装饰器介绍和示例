@@ -364,3 +364,29 @@ if __name__ == "__main__":
     print(get_hours())
     print(get_mins())
 
+
+装饰器带传参函数，多层装饰器：
+
+复制代码
+#验证函数
+def login(*args,**kwargs):
+    print('%s登陆验证%s！'%(args,kwargs))
+#登陆后操作
+def quanxian(*args,**kwargs):
+    print('%s登陆后操作！%s'%(args,kwargs))
+#装饰器
+def decorator(login_func,quanxian_func): #传参2个函数
+    def inner(index_func):   #传参登陆函数
+        def inner2(*args,**kwargs):  #接收index的传参
+            login_func(*args,**kwargs)  #执行login函数
+            index_func(*args,**kwargs)  #执行index函数
+            quanxian_func(*args,**kwargs)  #执行quanxian函数
+        return inner2   #返回函数地址
+    return inner  #返回函数地址
+@decorator(login,quanxian)  #执行装饰器
+def index(*args,**kwargs):  #登陆函数
+    print('登陆后台！%s,%s'%(args,kwargs))
+l1 = [1,2,3,4]
+dic = {'k1':'v1','k2':'v2'}
+index(l1,dic)    #执行函数
+
